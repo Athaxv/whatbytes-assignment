@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Whatbytes Store
+
+E-commerce product listing built with Next.js for the Whatbytes frontend assignment.
+
+## Live Demo
+
+Add your Vercel deployment URL here after deploying.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS
+- Zustand (cart state + localStorage persistence)
+- FakeStore API
+- lucide-react
+
+## Features
+
+- Product listing with responsive grid (3/2/1 columns)
+- Category and price filters synced to URL (`?category=electronics&price=0-500&q=phone`)
+- Search with debounced string matching
+- Product detail page with quantity selector
+- Cart page with quantity controls, remove item, and subtotal
+- Cart persisted in `localStorage`
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repo to a public GitHub repository
+2. Import the repo in [Vercel](https://vercel.com)
+3. Deploy (no environment variables required)
+4. Add the live URL above
 
-## Learn More
+## GitHub authorship tip
 
-To learn more about Next.js, take a look at the following resources:
+To avoid commits showing as made by Cursor/agent:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Set your identity locally before committing:
+   ```bash
+   git config user.name "Your Name"
+   git config user.email "your@email.com"
+   ```
+2. Push from your own terminal so GitHub records your account
+3. If needed, rewrite author on the latest commits:
+   ```bash
+   git commit --amend --author="Your Name <your@email.com>" --no-edit
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/                 # Pages and routes
+├── components/          # UI components
+├── hooks/               # URL filter hook
+├── lib/                 # API, types, filter helpers
+└── store/               # Zustand cart store
+```
