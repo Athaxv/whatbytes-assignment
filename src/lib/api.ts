@@ -4,7 +4,6 @@ const BASE_URL = "https://fakestoreapi.com";
 
 async function apiFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
-    cache: "no-store",
     headers: {
       Accept: "application/json",
     },

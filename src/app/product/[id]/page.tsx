@@ -1,8 +1,4 @@
-import { notFound } from "next/navigation";
-import { ProductDetailClient } from "@/components/products/ProductDetailClient";
-import { fetchProductById } from "@/lib/api";
-
-export const dynamic = "force-dynamic";
+import { ProductDetailLoader } from "@/components/products/ProductDetailLoader";
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -10,11 +6,5 @@ interface ProductPageProps {
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
-
-  try {
-    const product = await fetchProductById(id);
-    return <ProductDetailClient product={product} />;
-  } catch {
-    notFound();
-  }
+  return <ProductDetailLoader id={id} />;
 }

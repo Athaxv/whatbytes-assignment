@@ -4,14 +4,11 @@ import { useMemo } from "react";
 import { Sidebar } from "@/components/filters/Sidebar";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { filterProducts } from "@/lib/filters";
-import type { Product } from "@/lib/types";
 import { useProductFilters } from "@/hooks/useProductFilters";
+import { useProducts } from "@/hooks/useProducts";
 
-interface ProductListingProps {
-  products: Product[];
-}
-
-export function ProductListing({ products }: ProductListingProps) {
+export function ProductListing() {
+  const { products, loading, error } = useProducts();
   const { filters } = useProductFilters();
 
   const filteredProducts = useMemo(
@@ -28,7 +25,15 @@ export function ProductListing({ products }: ProductListingProps) {
         <h1 className="mb-6 text-2xl font-bold text-slate-800">
           Product Listing
         </h1>
-        <ProductGrid products={filteredProducts} />
+        {loading && (
+          <p className="text-center text-slate-500">Loading products...</p>
+        )}
+        {error && (
+          <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center text-red-600">
+            Failed to load products. Please refresh the page.
+          </div>
+        )}
+        {!loading && !error && <ProductGrid products={filteredProducts} />}
       </section>
     </div>
   );
