@@ -77,6 +77,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "whatbytes-cart",
+      partialize: (state) => ({ items: state.items }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

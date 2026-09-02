@@ -10,7 +10,9 @@ export function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get("q") || "");
-  const totalItems = useCartStore((state) => state.totalItems);
+  const cartCount = useCartStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0),
+  );
   const hasHydrated = useCartStore((state) => state.hasHydrated);
 
   useEffect(() => {
@@ -61,9 +63,9 @@ export function Header() {
         >
           <ShoppingCart className="h-4 w-4" />
           Cart
-          {hasHydrated && totalItems() > 0 && (
+          {hasHydrated && cartCount > 0 && (
             <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white">
-              {totalItems()}
+              {cartCount}
             </span>
           )}
         </Link>
