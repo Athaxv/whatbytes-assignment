@@ -2,26 +2,25 @@ import type { Product } from "./types";
 
 const BASE_URL = "https://fakestoreapi.com";
 
-export async function fetchProducts(): Promise<Product[]> {
-  const res = await fetch(`${BASE_URL}/products`, {
-    next: { revalidate: 3600 },
+async function apiFetch<T>(path: string): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch products");
+    throw new Error(`API error ${res.status}: ${path}`);
   }
 
   return res.json();
 }
 
+export async function fetchProducts(): Promise<Product[]> {
+  return apiFetch<Product[]>("/products");
+}
+
 export async function fetchProductById(id: string): Promise<Product> {
-  const res = await fetch(`${BASE_URL}/products/${id}`, {
-    next: { revalidate: 3600 },
-  });
-
-  if (!res.ok) {
-    throw new Error("Product not found");
-  }
-
-  return res.json();
+  return apiFetch<Product>(`/products/${id}`);
 }
